@@ -1,0 +1,74 @@
+
+52.234.142.248  ( trainer's master node)
+docker / Docker@12345
+
+sudo - i
+kubectl create ns trainer
+kubectl get ns
+kubectl run pod1 --image=httpd -n trainer
+kubectl get pods -n trainer -o wide
+kuberctl describe pod pod1 -n trainer
+kubectl exec -it pod1 -c pod1 bash -n trainer
+kubectl delete pod pod1 -n trainer
+
+Day 2
+Auto healing happen at Deployment of app NOT pod
+
+kubectl create deployment app1 --image=httpd -n trainer
+kubectl get deployemnt -n trainer
+kubectl get rs -n trainer
+kubectl delete pod deployment-name -n trainer
+kubectl get pods -n trainer -o wide
+
+Scaling
+kubectl scale deployment/app1 -- replicas=3 -n trainer
+
+watch kubectl get pods -n trainer
+
+decalrative way --yaml/yml --manifesto
+apiVersion
+kind : Pod
+metadata:
+spec:
+
+kubectl apply -f pod1.yaml -n tranier ( declarative way to create resource )
+kubectl delete deployment/d3 -n trainer
+kubectl describe pod p1 -n trainer
+kubectl logs p1 -c c1 -n trainer
+kubectl exec -it p1 -c c2 bash -n trainer ( login into container)
+kubectl explain deployment .spec
+
+kubectl run pod1 --image=httpd --dry-run=client -o yaml >  pod2.yaml
+kubectl create deployment d2 --image=httpd --dry-run=server -o yaml/json > d4.yaml
+
+
+pods ---> nodeport service (port) at worker node/ Kube-Proxy
+type: NodePort/LoadBalancer/ClusterIP(within internal/db)
+kubectl expose deploy/d2 --name=d2s1 --type=NodePort --port=80 --target-port=80 -n trainer
+kubectl expose deploy/d2 --name=d2lb1 --type=LoadBalancer  --external-ip=23.23.23.xx --port=80 --target-port=80 -n trainer
+kubectl get svc -n student1
+kubectl delete svc d2s1 -n student1
+microservice endpoint is the service name
+
+
+Roll out / Roll back
+
+kubectl get pods -n student1
+kubectl --record deployment/d4 set image deployment/d4 httpd=nginx -n trainer
+kubectl rollout history deploy/app1 -n trainer
+kubectl --record deployment/app1 set image deployment/app1 httpd=kharatramesh/vadapavimages:biryani -n trainer
+kubectl rollout history deploy/app1 -n trainer
+kubectl rollout undo deployment/app1 --to-revision=5 -n trainer
+
+Auto-Scaling
+kubectl top nodes
+kubectl top pods -A -n student1
+kubectl autoscale deployment/spgroup --cpu-percent=30 --min=2 --max=10 -n trainer
+
+kubectl exec -it spgroup-ccf9b8fd7-zrfnm bash -n student1
+dd if=/dev/zero of=/dev/null  --command to run at pod
+kubectl delete hpa spgroup -n student1
+
+ResourceQuota
+
+

@@ -1,0 +1,32 @@
+Produciton Scaling
+ 
+Issues on container management / docker engine
+
+HA/Reductancy
+Logical separation of containers
+Desired count/state
+Auto/Self Healing
+Auto scaling
+Dynamic Provisioning storage
+Monitoring
+Resource Quota
+Container management/Orchestration
+google kubernetes - K8S - goLang - CNCF
+
+
+
+Worker1 node ( DataPlane with multiple Worker nodes)
+OS
+Container Engine
+Kube-proxy ( Provide Service Port )
+CodeDNS
+Pod ( IP address) - logical place for container/s
+CAdvisor
+Kubelet ( control Container/worker1 ) - process
+
+Master node ( Control Plane )
+API Server ( kubectl / kubeadmin)
+Controllers( Deployment/ReplicaController )
+Cloud Controller
+Scheduler / scoring ( finding the best worker node)
+etcd - key value store ( containetcd )
